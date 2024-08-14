@@ -58,7 +58,7 @@ class RoleController {
             await roleService.deleteRoleId(id);
 
             res.status(200).send({
-                message: 'Usuario deletado com sucesso!'
+                message: 'Perfil deletado com sucesso!'
             })
         } catch (error) {
             res.status(400).send({
