@@ -13,6 +13,9 @@ module.exports = (sequelize, DataTypes) => {
       });
     }
   }
+
+
+  
   users_roles.init({
     userId: DataTypes.INTEGER,
     roleId: DataTypes.INTEGER
