@@ -5,7 +5,6 @@ const cors = require('cors');
 const app = express();
 const port = 3000;
 
-// OK
 // Habilita o CORS
 app.use(cors());
 // Define as rotas

@@ -1,20 +1,9 @@
 const db = require('../models');
 const { hash } = require('bcryptjs')
 // const uuid = require('uuid')
-const nodemailer = require('nodemailer');
 
 
 class UserService {
-    constructor() {
-        // Configurar o serviço de email
-        this.transporter = nodemailer.createTransport({
-            service: 'gmail',
-            auth: {
-                user: 'helterxb@gmail.com',
-                pass: 'Xavier02101728'
-            }
-        });
-    }
     async registerUser(dto) {
         const user = await db.users.findOne({
             where: {
@@ -26,7 +15,7 @@ class UserService {
             throw new Error("Esse usuário já foi cadastrado");
         }
 
-        const t = await db.sequelize.transaction(); // Inicia uma transação
+        const t = await db.sequelize.transaction(); 
         
         try {
             
@@ -70,23 +59,6 @@ class UserService {
     
             // Confirma a transação, se todas as operações acima forem bem-sucedidas
             await t.commit();
-    
-            // Envie um email com os detalhes do usuário
-            const mailOptions = {
-                from: 'seuemail@gmail.com',
-                to: dto.email,
-                subject: 'Novo usuário registrado',
-                text: `Olá ${dto.name},\n\nVocê foi registrado com sucesso em nosso sistema.\n\nDetalhes do usuário:\nID: ${dto.id}\nNome: ${dto.name}\nEmail: ${dto.email}\nStatus: ${dto.status}\nFunção: ${roleName}\n\nObrigado por se juntar a nós!`
-            };
-    
-            this.transporter.sendMail(mailOptions, function(error, info){
-                if (error) {
-                    console.error('Erro ao enviar o email:', error);
-                } else {
-                    console.log('Email enviado:', info.response);
-                }
-            });
-    
             return { newUser, roleName};
     
         } catch (error) {
