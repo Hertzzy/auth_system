@@ -1,17 +1,18 @@
 const { Router } = require('express');
 const UserController = require('../controller/userController');
-// const { verifyRole } = require('../middleware/verifyRole');
+const { verifyRole } = require('../middleware/verifyRole');
+const authentication = require('../middleware/authentication');
 
-const authentication = require('../middleware/authentication')
+const router = Router();
 
-const router = Router()
-
-router
-    .post('/users', UserController.registerUser)
-    .get('/users', authentication, UserController.searchAllUsers)
-    .get('/users/id/:id', authentication, UserController.searchUserId)
-    .put('/users/id/:id', authentication, UserController.editUser)
-    .delete('/users/id/:id', authentication, UserController.deleteUser)
-
-
+// Registrar usuário (admin e user podem acessar)
+router.post('/users', UserController.registerUser);
+// Buscar todos os usuários (admin e user podem acessar)
+router.get('/users', authentication, verifyRole([1, 2]), UserController.searchAllUsers);
+// Buscar usuário por ID (admin e user podem acessar)
+router.get('/users/id/:id', authentication, verifyRole([1, 2]), UserController.searchUserId);
+// Editar usuário por ID (somente admin pode acessar)
+router.put('/users/id/:id', authentication, verifyRole([1]), UserController.editUser);
+// Deletar usuário por ID (somente admin pode acessar)
+router.delete('/users/id/:id', authentication, verifyRole([1]), UserController.deleteUser);
 module.exports = router;

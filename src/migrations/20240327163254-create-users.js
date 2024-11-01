@@ -23,8 +23,8 @@ module.exports = {
         allowNull: false,
       },
       status: {
-        type: Sequelize.INTEGER,
-        defaultValue: 1,
+        type: Sequelize.ENUM('1', '2'), 
+        defaultValue: '1', 
         allowNull: false,
       },
       createdAt: {

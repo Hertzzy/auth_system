@@ -15,7 +15,11 @@ module.exports = (sequelize, DataTypes) => {
     name: DataTypes.STRING,
     email: DataTypes.STRING,
     password_hash: DataTypes.STRING,
-    status: DataTypes.INTEGER
+    status: {
+      type: DataTypes.ENUM('1', '2'), 
+      defaultValue: '1',
+      allowNull: false, 
+    }
   }, {
     sequelize,
     modelName: 'users',

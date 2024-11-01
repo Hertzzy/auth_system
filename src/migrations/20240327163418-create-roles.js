@@ -10,10 +10,10 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       role_name: {
-        type: Sequelize.ENUM("admin", "manager", "user"),
+        type: Sequelize.ENUM('admin', 'user'),
         defaultValue: 'user',
+        allowNull: false
       },
-      
       description: {
         type: Sequelize.STRING
       },
@@ -26,7 +26,24 @@ module.exports = {
         type: Sequelize.DATE
       }
     });
+
+    // Inserir os dados iniciais na tabela 'roles'
+    await queryInterface.bulkInsert('roles', [
+      {
+        role_name: 'admin',
+        description: 'Administrador',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      },
+      {
+        role_name: 'user',
+        description: 'Usuário comum',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      }
+    ]);
   },
+
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('roles');
   }
