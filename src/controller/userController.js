@@ -4,7 +4,7 @@ const userService = new UserService();
 const db = require('../models');
 const { hash } = require('bcryptjs');
 
-class DocController {
+class UserController {
   // Register Doc
   static async registerUser(req, res) {
     const { id, name, email, password_hash, status, role_name } = req.body;
@@ -120,4 +120,4 @@ class DocController {
   }
 }
 
-module.exports = DocController;
+module.exports = UserController;
