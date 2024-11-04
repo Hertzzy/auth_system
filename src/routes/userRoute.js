@@ -14,7 +14,7 @@ router.get('/users/id/:id', authentication, verifyRole([1, 2]), UserController.s
 // Editar usuário por ID (somente admin pode acessar)
 router.put('/users/id/:id', authentication, verifyRole([1, 2]), UserController.editUser);
 // Editar senha
-router.put('/users/change-password', verifyToken, UserController.changePassword);
+router.put('/users/change-password', authentication, verifyToken, UserController.changePassword);
 // Deletar usuário por ID (somente admin pode acessar)
 router.delete('/users/id/:id', authentication, verifyRole([1]), UserController.deleteUser);
 

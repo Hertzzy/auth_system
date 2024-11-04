@@ -1,11 +1,6 @@
 const { Op } = require('sequelize');
 const db = require('../models');
 
-const roles = {
-  admin: [1], // ID do papel de admin
-  user: [1, 2] // IDs dos papéis de admin e user
-};
-
 const verifyRole = allowedRoles => async (req, res, next) => {
   const userId = req.userId; // Obter o ID do usuário autenticado
 
