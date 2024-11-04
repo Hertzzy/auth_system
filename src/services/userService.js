@@ -20,17 +20,18 @@ class UserService {
     try {
       const passwordHash = await hash(dto.password_hash, 6);
 
+      // Define o status padrão como '1' caso não tenha sido passado no dto
+      // const status = dto.status || '1';
+
       const newUser = await db.users.create(
         {
           name: dto.name,
           email: dto.email,
           password_hash: passwordHash,
-          status: dto.status
+          status: dto.status || '1'
         },
         { transaction: t }
       );
-
-      console.log('Novo usuário criado:', newUser);
 
       // Verifique se role_name foi fornecido; se não, defina como 'user'
       const roleName = dto.role_name || 'user';
