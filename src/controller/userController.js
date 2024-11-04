@@ -1,8 +1,7 @@
 const UserService = require('../services/userService');
 const userService = new UserService();
-
 const db = require('../models');
-const { hash } = require('bcryptjs');
+const { hash, compare } = require('bcryptjs');
 
 class UserController {
   // Register Doc
@@ -116,6 +115,43 @@ class UserController {
       res.status(400).send({
         message: error.message
       });
+    }
+  }
+
+  static async changePassword(req, res) {
+    try {
+      const { currentPassword, newPassword } = req.body;
+      const userId = req.userId;
+      console.log(userId);
+      // Verificar se os campos estão preenchidos
+      if (!currentPassword || !newPassword) {
+        return res.status(400).send({ message: 'Por favor, forneça a senha atual e a nova senha.' });
+      }
+
+      // Buscar o usuário no banco de dados
+      const user = await db.users.findByPk(userId);
+
+      if (!user) {
+        return res.status(404).send({ message: 'Usuário não encontrado.' });
+      }
+
+      // Comparar a senha atual com o hash no banco de dados
+      const passwordMatch = await compare(currentPassword, user.password_hash);
+      if (!passwordMatch) {
+        return res.status(401).send({ message: 'Senha atual incorreta.' });
+      }
+
+      // Gerar o hash da nova senha
+      const newHashedPassword = await hash(newPassword, 6);
+
+      // Atualizar a senha no banco de dados
+      user.password_hash = newHashedPassword;
+
+      await user.save();
+
+      res.status(200).send({ message: 'Senha alterada com sucesso!' });
+    } catch (error) {
+      res.status(500).send({ message: 'Erro ao alterar a senha.', error: error.message });
     }
   }
 }
