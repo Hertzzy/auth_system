@@ -8,8 +8,6 @@ class UserController {
   static async registerUser(req, res) {
     const { id, name, email, password_hash, status, role_name } = req.body;
 
-    console.log('Controller: ', id, name, email, password_hash, status, role_name);
-
     if (!name || !email || !password_hash || !status) {
       return res.status(400).send({ message: 'Por favor, forneça todos os campos necessários.' });
     }

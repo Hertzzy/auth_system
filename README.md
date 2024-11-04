@@ -93,7 +93,8 @@ O model users armazena os dados dos usuários e se relaciona com o model roles d
 
 - `npx sequelize-cli model:generate --name users --attributes,email:STRING,password_hash:STRING,status:STRING`
 - `npx sequelize-cli model:generate --name roles --attributes role_name:STRING,description:STRING`
-- `npx sequelize-cli model:generate --name users_roles --attributes role_name:STRING,description:STRING` -`npx sequelize-cli model:generate --name documents --attributes code:STRING,name:STRING stauts:ENUM,document_type:ENUM,document_cpf:STRING,document_rg:STRING,obs:STRING,upload:STRING`
+- `npx sequelize-cli model:generate --name users_roles --attributes role_name:STRING,description:STRING`
+- `npx sequelize-cli model:generate --name documents --attributes code:STRING,name:STRING stauts:ENUM,document_type:ENUM,document_cpf:STRING,document_rg:STRING,obs:STRING,upload:STRING`
 
 **OPERAÇÕES NECESSÁRIAS**
 
