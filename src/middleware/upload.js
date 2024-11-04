@@ -4,7 +4,7 @@ const multer = require('multer');
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     // Define o diretório onde os arquivos serão armazenados
-    cb(null, './public/upload/docUsers'); // Ajuste o caminho conforme necessário
+    cb(null, './public/upload/docUsers');
   },
   filename: (req, file, cb) => {
     // Salva o arquivo com um nome que inclui a data atual e o nome original do arquivo
@@ -26,8 +26,7 @@ const upload = multer({
   }
 });
 
-// Middleware para upload, onde 'document' é o nome do campo esperado
-const uploadMiddleware = upload.single('upload'); // Use 'upload.array' se você quiser permitir múltiplos arquivos, mas para PDF singular, use 'single'
+const uploadMiddleware = upload.single('upload'); // Usar 'upload.array' se  quiser permitir múltiplos arquivos
 
 // Exportando o middleware
 module.exports = uploadMiddleware;

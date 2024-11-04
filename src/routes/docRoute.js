@@ -1,8 +1,9 @@
 const { Router } = require('express');
 const DocController = require('../controller/docController');
-const uploadMiddleware = require('../middleware/upload'); // Importa o middleware de upload
+const uploadMiddleware = require('../middleware/upload');
 const { verifyRole } = require('../middleware/verifyRole');
 const authentication = require('../middleware/authentication');
+
 const router = Router();
 
 // Registrar novo documento (acesso restrito a admin)

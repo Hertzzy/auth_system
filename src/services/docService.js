@@ -13,7 +13,6 @@ class DocService {
     }
 
     try {
-      // armazenar os caminhos dos arquivos na coluna 'upload' no banco de dados.
       const newDoc = await db.documents.create({
         code: dto.code,
         name: dto.name,
@@ -22,7 +21,7 @@ class DocService {
         document_cpf: dto.document_cpf,
         document_rg: dto.document_rg,
         obs: dto.obs,
-        upload: dto.upload || null // Armazena os caminhos como string, separando por vírgula
+        upload: dto.upload || null
       });
       return newDoc;
     } catch (error) {
