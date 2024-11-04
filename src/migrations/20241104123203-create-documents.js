@@ -37,6 +37,10 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false
       },
+      obs: {
+        type: Sequelize.TEXT,
+        allowNull: true
+      },
       upload: {
         type: Sequelize.STRING,
         allowNull: false

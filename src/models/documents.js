@@ -14,7 +14,8 @@ module.exports = (sequelize, DataTypes) => {
       document_type: DataTypes.ENUM('1', '2', '3'),
       document_cpf: DataTypes.STRING,
       document_rg: DataTypes.STRING,
-      upload: DataTypes.STRING
+      upload: DataTypes.STRING,
+      obs: DataTypes.TEXT
     },
     {
       sequelize,

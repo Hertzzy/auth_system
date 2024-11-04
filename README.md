@@ -14,55 +14,69 @@ O objetivo deste projeto é avaliar minhas habilidades de programação no desen
 - [📓 Conexão com o banco de dados](#conexão-com-o-banco-de-dados)
 - [📓 Migração das tabelas no Bando de Dados](#migração-das-tabelas-no-bando-de-dados)
 
-
 # 🧠 Sobre o Projeto
 
 Tenho estudado programação diariamente focado em aprender e crescer como desenvolvedor.
 Fiz esse projeto no intuito de aplicar o que tenho aprendido em cursos, faculdade e palestra.
 
-Neste projeto, está incluído os **Pefis de usuários**
+Neste projeto, está incluído os **CRUD de usuários, CRUD de Documentos e Perfis de usuários**
 
-- Interação do projeto.  **CRUD (Create, Read, Update e Delete)**;
+- Interação do projeto. **CRUD (Create, Read, Update e Delete)**;
 
-# 🚰 Fluxo
+# 🚰 FLUXO
 
-- CRUD de usuários;
+- CRUD de usuários e Documentos;
 - Relacionamento entre as tabelas
 - Middleware de Autenticação;
+- Middleware de verificação ddo token;
 - Middleware de verificação de perfil do usuário;
-- Tabelas Criadas: **(users, roles, users_roles)**
-
+- Middleware de upload
+- Tabelas Criadas: **(users, roles, users_roles, documents)**
 
 # ⚔️ Modelagem de Dados
 
 ## USERS
 
-|    |                    Atributo                    | Tipo     |
-|----| ---------------------------------------------- | -------- |
-| PK | ID                                             | `INTEGER`|
-|    | NAME                                           | `VARCHAR`|
-|    | EMAIL                                          | `VARCHAR`|
-|    | PASSWORD_HASH                                  | `VARCHAR`|
-|    | STATUS (`Active`, `Inactive`,`Banned`)         | `ENUM`   |
+|     | Atributo          | Tipo      |
+| --- | ----------------- | --------- |
+| PK  | ID                | `INTEGER` |
+|     | NAME              | `VARCHAR` |
+|     | EMAIL             | `VARCHAR` |
+|     | PASSWORD_HASH     | `VARCHAR` |
+|     | STATUS (`1`, `2`) | `ENUM`    |
 
 ## ROLES
 
-|    |                    Atributo                    | Tipo     |
-|----| ---------------------------------------------- | -------- |
-| PK | ID                                             | `INTEGER`|
-|    | ROLE_NAME(`ADMIN`, `MANAGER`,`USER`)           | `ENUM`   |
-|    | DESCRIPTION                                    | `VARCHAR`|
-
+|     | Atributo                  | Tipo      |
+| --- | ------------------------- | --------- |
+| PK  | ID                        | `INTEGER` |
+| FK  | ROLE_NAME(`ADMIN`,`USER`) | `ENUM`    |
+| FK  | DESCRIPTION               | `VARCHAR` |
 
 ## USERS_ROLES
 
-|    |                    Atributo                    | Tipo     |
-|----| ---------------------------------------------- | -------- |
-| PK | ID                                             | `INTEGER`|
-| FK | USER_ID                                        | `INTEGER`|
-| FK | ROLE_ID                                        | `INTEGER`|
+|     | Atributo | Tipo      |
+| --- | -------- | --------- |
+| PK  | ID       | `INTEGER` |
+| FK  | USER_ID  | `INTEGER` |
+| FK  | ROLE_ID  | `INTEGER` |
+
+## DOCUMENTOS
+
+|     | Atributo                 | Tipo      |
+| --- | ------------------------ | --------- |
+| PK  | ID                       | `INTEGER` |
+|     | CODE                     | `VARCHAR` |
+|     | NAME                     | `VARCHAR` |
+|     | STATUS (`1`, `2`)        | `ENUM`    |
+|     | DOCUMENT_TYPE (`1`, `2`) | `ENUM`    |
+|     | DOCUMENT_CPF             | `VARCHAR` |
+|     | DOCUMENT_RG              | `VARCHAR` |
+|     | OBS                      | `VARCHAR` |
+|     | UPLOAD                   | `VARCHAR` |
 
 # 📓 Relacionamento das tabelas
+
 O model users armazena os dados dos usuários e se relaciona com o model roles de forma que um usuário pode ter várias funções, e uma função pode ser atribuída a vários usuários. A tabela de associação users_roles gerencia essa relação muitos para muitos entre users e roles.
 
 ### Em outras palavras:
@@ -75,6 +89,11 @@ O model users armazena os dados dos usuários e se relaciona com o model roles d
 
 `CREATE DATABASE db_name CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;`
 
+# 📓 Migrations
+
+- `npx sequelize-cli model:generate --name users --attributes,email:STRING,password_hash:STRING,status:STRING`
+- `npx sequelize-cli model:generate --name roles --attributes role_name:STRING,description:STRING`
+- `npx sequelize-cli model:generate --name users_roles --attributes role_name:STRING,description:STRING` -`npx sequelize-cli model:generate --name documents --attributes code:STRING,name:STRING stauts:ENUM,document_type:ENUM,document_cpf:STRING,document_rg:STRING,obs:STRING,upload:STRING`
 
 **OPERAÇÕES NECESSÁRIAS**
 

@@ -21,6 +21,7 @@ class DocService {
         document_type: dto.document_type,
         document_cpf: dto.document_cpf,
         document_rg: dto.document_rg,
+        obs: dto.obs,
         upload: dto.upload || null // Armazena os caminhos como string, separando por vírgula
       });
       return newDoc;
@@ -72,7 +73,6 @@ class DocService {
       throw new Error('Erro ao atualizar o documento: ' + error.message);
     }
   }
-
   async deleteDocById(id) {
     const doc = await this.listDocById(id);
 
